@@ -21,33 +21,41 @@ This Event Management System allows users to create, manage, and book tickets fo
 ## Project Structure
 
 software_project/
-├── controllers/         # Controller functions for handling requests
+├── controllers/              # Request handlers / Controllers
 │   ├── auth.controller.js
 │   ├── pdf.controller.js
 │   └── users.controller.js
-├── models/              # Database models
+│
+├── models/                   # Mongoose or Sequelize models
 │   ├── booking.model.js
 │   ├── event.model.js
 │   ├── Token.model.js
 │   └── User.model.js
-├── public/              # Static assets (CSS, JS, images)
-│   ├── backgrounds/
-│   ├── *.css            # CSS files
-│   └── script.js        # Client-side JavaScript
-├── routes/              # Express routes
+│
+├── public/                   # Static assets served to client
+│   ├── backgrounds/          # Background images
+│   ├── *.css                 # Stylesheets
+│   └── script.js             # Frontend JavaScript
+│
+├── routes/                   # Route definitions
 │   ├── index.route.js
 │   └── profile.routes.js
-├── services/            # Business logic services
+│
+├── services/                 # Business logic
 │   └── auth.service.js
-├── utils/               # Utility functions
-│   └── email/           # Email sending utilities
-│       └── sendEmail.js
-├── views/               # EJS templates
-│   ├── *.ejs           # Various view templates
-│   └── template/       # Email templates
-├── .env                # Environment variables
-├── db.js               # Database connection
-└── index.js            # Application entry point
+│
+├── utils/                    # Utility functions and helpers
+│   └── email/
+│       └── sendEmail.js      # Email sending utility
+│
+├── views/                    # EJS view templates
+│   ├── *.ejs                 # Page views
+│   └── template/             # Email templates
+│
+├── .env                      # Environment configuration
+├── db.js                     # Database connection file
+└── index.js                  # Entry point of the application
+
 
 ## Technologies Used
 
