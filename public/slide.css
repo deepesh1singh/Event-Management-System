@@ -1,0 +1,261 @@
+* {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+  box-sizing: border-box;
+
+}
+
+body,
+html {
+  width: 100%;
+  height: 60vh;
+}
+
+.section_top {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  position: relative;
+  background-image: url(backgrounds/1.jpg);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  text-align: center;
+  justify-content: center;
+  animation: change 10s infinite ease-in;
+
+}
+
+.content1 {
+  position: absolute;
+  font-size: 200%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-transform: uppercase;
+  -webkit-text-stroke: 1px #fff;
+  /* color: transparent; */
+  /* -webkit-background-clip: text; */
+  background-position: -750px 0;
+  animation: backcolor 5s linear infinite;
+}
+
+@keyframes backcolor {
+  100% {
+    background-position: 0 0;
+  }
+}
+
+
+@keyframes change {
+  0% {
+    background-image: url(backgrounds/1.jpg);
+  }
+
+  20% {
+    background-image: url(backgrounds/2.jpg);
+  }
+
+  40% {
+    background-image: url(backgrounds/3.jpg);
+  }
+
+  60% {
+    background-image: url(backgrounds/4.jpg);
+  }
+
+  80% {
+    background-image: url(backgrounds/5.jpg);
+  }
+
+  100% {
+    background-image: url(backgrounds/6.jpg);
+  }
+}
+
+body {
+  margin: 0;
+  padding: 0;
+}
+
+section {
+  width: 100%;
+  height: 200vh;
+  background-size: cover;
+  background-image: url(backgrounds/7.jpg);
+}
+
+section .leftBox {
+  width: 50%;
+  height: 100%;
+  float: left;
+  padding: 50px;
+  box-sizing: border-box;
+}
+
+section .leftBox .content2 {
+  color: #fff;
+  background: rgba(0, 0, 0, 0.5);
+  padding: 40px;
+  transition: .5s;
+}
+
+section .leftBox .content2:hover {
+  background: #e91e63;
+}
+
+section .leftBox .content2 h1 {
+  margin: 0;
+  padding: 0;
+  font-size: 50px;
+  text-transform: uppercase;
+}
+
+section .leftBox .content2 p {
+  margin: 10px 0 0;
+  padding: 0;
+}
+
+section .events {
+  position: relative;
+  width: 50%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  float: right;
+  box-sizing: border-box;
+  overflow-y: auto;
+}
+
+section .events .search-bar {
+  position: relative;
+  width: 75%;
+  background-color: lightyellow;
+  backdrop-filter: blur(60px);
+  padding: 10px;
+  border-radius: 10px;
+}
+
+section .events .search-bar input[type="text"] {
+  width: calc(100% - 80px);
+  /* Adjust to fit button */
+  padding: 8px;
+  border: none;
+  outline: none;
+  color: black;
+  backdrop-filter: blur(10px);
+  /* Transparent input background */
+}
+
+section .events .search-bar button {
+  width: 75px;
+  /* Adjust as needed */
+  padding: 8px;
+  border: none;
+  outline: none;
+  background-color: red;
+  /* Red button */
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+section .events .search-bar button:hover {
+  background-color: darkred;
+  /* Dark red on hover */
+}
+
+section .events ul {
+  /* padding-top: 80px; */
+  margin: 0;
+  box-sizing: border-box;
+}
+
+section .events ul li {
+  list-style: none;
+  background: #fff;
+  box-sizing: border-box;
+  height: 200px;
+  margin: 15px 0;
+}
+
+section .events ul li .time {
+  position: relative;
+  padding: 20px;
+  background: #262626;
+  box-sizing: border-box;
+  width: 30%;
+  height: 100%;
+  float: left;
+  text-align: center;
+  transition: .5s;
+}
+
+section .events ul li:hover .time {
+  background: #e91e63;
+}
+
+section .events ul li .time h2 {
+  position: absolute;
+  margin: 0;
+  padding: 0;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #fff;
+  font-size: 60px;
+  line-height: 30px;
+}
+
+section .events ul li .time h5 {
+  color: #fff;
+}
+
+section .events ul li .time h2 span {
+  font-size: 30px;
+}
+
+section .events ul li .details {
+  padding: 20px;
+  background: #fff;
+  box-sizing: border-box;
+  width: 70%;
+  height: 100%;
+  float: left;
+}
+
+section .events ul li .details h3 {
+  position: relative;
+  margin: 0;
+  padding: 0;
+  font-size: 22px;
+}
+
+section .events ul li .details p {
+  position: relative;
+  margin: 10px 0 0;
+  padding: 0;
+  font-size: 16px;
+}
+
+section .events ul li .details a {
+  display: inline-block;
+  text-decoration: none;
+  padding: 10px 15px;
+  border: 1.5px solid #262626;
+  margin-top: 8px;
+  font-size: 18px;
+  transition: .5s;
+}
+
+section .events ul li .details a:hover {
+  background: #e91e63;
+  color: #fff;
+  border-color: #e91e63;
+}
+
+section .events ul li .details{
+  background: lightskyblue;
+  color: black;
+  border-color: #e91e63;
+}

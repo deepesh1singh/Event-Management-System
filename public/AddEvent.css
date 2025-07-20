@@ -1,0 +1,93 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-image: url(backgrounds/2.jpg);
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 700px;
+    margin: 100px auto;
+    background-color: rgb(74, 52, 52);
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    color: #fff;
+    /* Text color */
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.event-info {
+    margin-bottom: 20px;
+}
+
+.event-info label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.event-info input[type="text"],
+.event-info input[type="number"],
+.event-info input[type="date"],
+.event-info input[type="time"] {
+    width: 100%;
+    padding: 8px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #fff;
+    color: #333;
+    /* Text color */
+}
+
+.event-info textarea {
+    width: 100%;
+    /* Make the textarea full-width */
+    height: 150px;
+    /* Set an initial height */
+    padding: 8px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #fff;
+    color: #333;
+    /* Text color */
+}
+
+.button-container {
+    text-align: center;
+}
+
+.submit-btn {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #4caf50;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+    margin-right: 10px;
+}
+
+.submit-btn:hover {
+    background-color: #45a049;
+}
+
+.hidden {
+    display: none;
+}

@@ -1,0 +1,32 @@
+footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 1rem;
+    background: transparent;
+    backdrop-filter: blur(0px);
+    color: white;
+    font-size: 2em;
+    font-weight: 500;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+footer a {
+    color: white;
+    /* position: absolute;
+    bottom: 37%; 
+    right: 5%; */
+}
+
+footer img {
+    width: 150px; 
+    height: auto; 
+}    
+
+footer span {
+    flex-grow: 1; 
+    text-align: center; 
+}

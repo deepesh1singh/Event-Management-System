@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SAMS | <%= title %>
+    </title>
+    <link rel="stylesheet" href="/nav.css">
+    <link rel="stylesheet" href="/AddExpenditure.css">
+    <link rel="stylesheet" href="/footer.css">
+
+</head>
+
+<body>
+    <%- include('partials/logout') %>
+        <div class="container">
+            <h1>Add Expenditure Details</h1>
+            <form id="edit-event-form">
+                <div class="expenditure-item">
+                    <label for="expen_Stage_Management">Stage Management:</label>
+                    <input type="number" id="expen_Stage_Management" value="<%= event.expen_Stage_Management %>"
+                        name="expen_Stage_Management">
+                </div>
+                <div class="expenditure-item">
+                    <label for="expen_Sound_Engineer">Sound Engineer:</label>
+                    <input type="number" id="expen_Sound_Engineer" value="<%= event.expen_Sound_Engineer %>"
+                        name="expen_Sound_Engineer">
+                </div>
+                <div class="expenditure-item">
+                    <label for="expen_Light_Engineer">Light Engineer:</label>
+                    <input type="number" id="expen_Light_Engineer" value="<%= event.expen_Light_Engineer %>"
+                        name="expen_Light_Engineer">
+                </div>
+                <div class="expenditure-item">
+                    <label for="expen_Catering">Catering:</label>
+                    <input type="number" id="expen_Catering" value="<%= event.expen_Catering %>" name="expen_Catering">
+                </div>
+                <div class="expenditure-item">
+                    <label for="expen_Security">Security:</label>
+                    <input type="number" id="expen_Security" value="<%= event.expen_Security %>" name="expen_Security">
+                </div>
+                <div class="expenditure-item">
+                    <label for="expen_Marketing">Marketing:</label>
+                    <input type="number" id="expen_Marketing" value="<%= event.expen_Marketing %>"
+                        name="expen_Marketing">
+                </div>
+                <div class="expenditure-item">
+                    <label for="expen_Cleaning">Cleaning:</label>
+                    <input type="number" id="expen_Cleaning" value="<%= event.expen_Cleaning %>" name="expen_Cleaning">
+                </div>
+                <div class="expenditure-item">
+                    <label for="expen_Other">Other:</label>
+                    <input type="number" id="expen_Other" value="<%= event.expen_Other %>" name="expen_Other">
+                </div>
+
+                <% if (event.expen_Performer && event.expen_Performer.length> 0) { %>
+                    <% for (let i=0; i < event.expen_Performer.length; i++) { %>
+                        <div class="expenditure-item">
+                            <label for="expen_Performer">Performer:</label>
+                            <input type="number" id="expen_Performer" value="<%= event.expen_Performer[i] %>"
+                                name="expen_Performer">
+                        </div>
+                        <% } %>
+                            <% } %>
+
+                                <div class="button-container">
+                                    <button type="button" id="save-event-btn" class="submit-btn">Add Expenditure</button>
+                                </div>
+            </form>
+        </div>
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+        <script>
+            document.getElementById("save-event-btn").addEventListener("click", function () {
+                // Get the form data
+                const formData = {
+                    expen_Stage_Management: document.getElementById("expen_Stage_Management").value,
+                    expen_Sound_Engineer: document.getElementById("expen_Sound_Engineer").value,
+                    expen_Light_Engineer: document.getElementById("expen_Light_Engineer").value,
+                    expen_Catering: document.getElementById("expen_Catering").value,
+                    expen_Security: document.getElementById("expen_Security").value,
+                    expen_Marketing: document.getElementById("expen_Marketing").value,
+                    expen_Cleaning: document.getElementById("expen_Cleaning").value,
+                    expen_Other: document.getElementById("expen_Other").value,
+                    expen_Performer: []
+                };
+
+                // Get the values of expen_Performer inputs
+                const performerInputs = document.getElementsByName("expen_Performer");
+                performerInputs.forEach(input => {
+                    formData.expen_Performer.push(input.value);
+                });
+
+                // Get the userId and eventId from the form's action attribute
+                const userId = '<%= userId %>';
+                const eventId = '<%= eventId %>';
+
+                // Send a PATCH request using Axios
+                axios.patch(`/index/${userId}/${eventId}/addExpenditure`, formData)
+                    .then(response => {
+                        console.log(response.data);
+                        // Redirect to the specified URL with userId
+                        window.location.href = `/index/${userId}`;
+                    })
+                    .catch(error => {
+                        console.error(error);
+                        // Handle error
+                    });
+            });
+        </script>
+</body>
+
+</html>

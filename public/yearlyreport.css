@@ -1,0 +1,27 @@
+/* style.css */
+
+/* Center align headings */
+h1,
+h2 {
+    text-align: center;
+}
+
+/* Format table */
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+/* Table header */
+th {
+    padding: 8px;
+    text-align: center;
+    border: 1px solid #ddd;
+}
+
+/* Table data */
+td {
+    padding: 8px;
+    text-align: center;
+    border: 1px solid #ddd;
+}

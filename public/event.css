@@ -1,0 +1,75 @@
+.contain {
+	min-width: 100px;
+	min-height: 150ex;
+	background-image: url("backgrounds/details.jpeg");
+	background-size: cover;
+	padding: 20px;
+	padding-top: 100px;
+	border-radius: 5px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: flex-start;
+}
+
+.contain ul {
+	/* list-style-type: none; */
+	margin: 0;
+	padding: 0;
+	overflow: hidden;
+	color: whitesmoke;
+}
+
+.contain label {
+	color: Pink;
+	font-size: 1.5em;
+	font-weight: bold;
+}
+
+/* .contain li {
+	float: left;
+} */
+
+.contain h1 {
+	color: whitesmoke;
+	/* padding-top: 10px; */
+	font-size: 4em;
+	font-weight: bold;
+	/* margin-bottom: 60px; */
+}
+
+.contain h5 {
+	color: whitesmoke;
+	font-size: 1em;
+}
+
+#details {
+	color: whitesmoke;
+	width: 100%;
+	overflow-wrap: break-word;
+	white-space: pre-line;
+}
+
+.contain p {
+	color: lightgreen;
+	font-weight: bold;
+	font-size: 1.2em;
+}
+
+.contain button {
+	background-color: red;
+	padding: 14px 20px;
+	width: 200px;
+	margin: 8px 0;
+	border: none;
+	cursor: pointer;
+}
+
+.contain button:hover {
+	background-color: orange;
+	padding: 14px 20px;
+	width: 200px;
+	margin: 8px 0;
+	border: none;
+	cursor: pointer;
+}

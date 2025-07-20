@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SAMS | <%= title %>
+    </title>
+    <link rel="stylesheet" href="/logout.css">
+    <link rel="stylesheet" href="/accountant.css">
+    <link rel="stylesheet" href="/footer.css">
+</head>
+
+<body>
+
+    <%- include('partials/logout') %>
+        <section>
+
+            <a href="" id="profileLink">
+                <div class="profile-btn">
+                    <img src="/backgrounds/profile.jpg" alt="Profile Picture">
+                </div>
+            </a>
+            <script>
+                const currentUrl = window.location.href;
+
+                // Get the <a> tag by its ID
+                const profileLink = document.getElementById('profileLink');
+
+                // Set the href attribute of the <a> tag
+                profileLink.href = currentUrl + '/profile';
+            </script>
+            <div class="events">
+                <ul>
+                    <% if (Events.length> 0) { %>
+                        <% Events.forEach(event=> { %>
+                            <% const eventYear=event.date.getFullYear(); %>
+                                <% const currentYear=new Date().getFullYear(); %>
+                                    <% if (eventYear===currentYear) { %>
+                                        <li>
+                                            <div class="time">
+                                                <h2>
+                                                    <%= event.date.getDate() %><span>
+                                                            <%= event.date.toLocaleString('default', { month: 'long' })
+                                                                %>
+                                                        </span>
+                                                </h2>
+                                                <h4>Event starts at <%= event.date.getHours() %>:<%=
+                                                            event.date.getMinutes() %>
+                                                </h4>
+                                            </div>
+                                            <div class="details">
+                                                <h3>
+                                                    <%= event.title %>
+                                                </h3>
+                                                <button onclick="program('<%= event._id %>')">
+                                                    <h1>Add Expenditure details</h1>
+                                                </button>
+                                            </div>
+                                            <script>
+                                                function program(eventId) {
+                                                    let currentUrl = window.location.href;
+                                                    window.location.href = currentUrl + '/' + eventId + '/addExpenditure';
+                                                }
+                                            </script>                                            
+                                            <div style="clear:both;"></div>
+                                            <% } %>
+                                                <% }); %>
+                                                    <% } else { %>
+                                                        <p>
+                                                        <h1 style="color: white;">There are no Events to display
+                                                            yet...</h1>
+                                                        </p>
+                                                        <% } %>
+                                        </li>
+                </ul>
+            </div>
+        </section>
+        <%- include('partials/footer') %>
+</body>
+
+</html>

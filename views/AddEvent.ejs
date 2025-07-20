@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SAMS | <%= title %>
+    </title>
+    <link rel="stylesheet" href="/nav.css">
+    <link rel="stylesheet" href="/AddEvent.css">
+    <link rel="stylesheet" href="/footer.css">
+
+</head>
+
+<body>
+    <%- include('partials/logout') %>
+        <div class="container">
+            <h1>Add Event</h1>
+            <form id="edit-event-form" method="post" action="/index/<%= userId %>/addEvent"
+                onsubmit="return validateForm()">
+
+                <div class="event-info">
+                    <label for="title">Title Of Event :</label>
+                    <input type="text" id="title" name="title" placeholder="The Full Title of Event" required>
+                </div>
+
+                <div class="event-info">
+                    <label for="brief">Brief Of Event :</label>
+                    <input type="text" id="brief" name="brief" placeholder="Two to three lines Brief about the event"
+                        required>
+                </div>
+
+                <div class="event-info">
+                    <label for="details">Details Of Event :</label>
+                    <textarea id="details" name="details"
+                        placeholder="Full Detail of the event may be multiple lines long" required></textarea>
+                </div>
+
+                <div class="event-info">
+                    <label for="date">Date of event:</label>
+                    <input type="date" id="date" name="date" required>
+                </div>
+
+                <div class="event-info">
+                    <label for="time">Time of event:</label>
+                    <input type="time" id="time" name="time" required>
+                </div>
+
+                <div class="event-info">
+                    <label for="length">Length of event (in hours):</label>
+                    <input type="number" id="length" name="length" placeholder=0 required>
+                </div>
+
+                <div class="event-info">
+                    <label for="Guests">Guests:</label>
+                    <input type="text" id="guests" name="guests" placeholder="Lubesh,Deepesh,Siddharth">
+                </div>
+
+                <div class="event-info">
+                    <label for="Performer">Performer:</label>
+                    <input type="text" id="performer" name="performer" placeholder="Lubesh,Deepesh,Siddharth">
+                </div>
+
+                <div class="event-info">
+                    <label for="Organiser">Organiser:</label>
+                    <input type="text" id="organiser" name="organiser" placeholder="Lubesh,Deepesh,Siddharth">
+                </div>
+
+                <!-- <div class="event-info">
+                    <label for="Auditorium">Auditorium:</label>
+                    <input type="text" id="auditorium" name="auditorium" placeholder="Netaji Auditorium" required>
+                </div>
+
+                <div class="event-info">
+                    <label for="Location">Location:</label>
+                    <input type="text" id="location" name="location" placeholder="IIT Kharagpur" required>
+                </div> -->
+
+                <div class="event-info">
+                    <label for="price_balcony">Price for Balcony Seats:</label>
+                    <input type="number" id="price_balcony" name="price_balcony" placeholder="in INR" required>
+                </div>
+
+                <div class="event-info">
+                    <label for="price_normal">Price for Normal Seats:</label>
+                    <input type="number" id="price_normal" name="price_normal" placeholder="in INR" required>
+                </div>
+
+                <div class="event-info">
+                    <label for="vendor_comission"> SalesPerson Comission </label>
+                    <input type="number" id="vendor_comission" name="vendor_comission" placeholder="in INR" required>
+                </div>
+
+                <div class="event-info">
+                    <label for="vip_tickets_balcony">VIP Tickets numbers(balcony):</label>
+                    <input type="text" id="vip_tickets_balcony" name="vip_tickets_balcony" placeholder="between 1-30">
+                </div>
+
+                <div class="event-info">
+                    <label for="vip_tickets_normal">VIP Tickets Numbers(normal):</label>
+                    <input type="text" id="vip_tickets_normal" name="vip_tickets_normal" placeholder="between 31-100">
+                </div>
+
+                <div class="button-container">
+                    <button type="submit" id="save-event-btn" class="submit-btn">Add Event</button>
+                </div>
+            </form>
+        </div>
+
+        <script>
+            function validateForm() {
+                var price_balcony = parseInt(document.getElementById('price_balcony').value);
+                var price_normal = parseInt(document.getElementById('price_normal').value);
+                var vip_tickets_balcony = parseInt(document.getElementById('vip_tickets_balcony').value);
+                var vip_tickets_normal = parseInt(document.getElementById('vip_tickets_normal').value);
+                var vendor_comission = parseInt(document.getElementById('vendor_comission').value);
+                var length = parseInt(document.getElementById('length').value);
+
+                if (price_balcony < vendor_comission || price_normal < vendor_comission) {
+                    alert("Price for Balcony Seats and Price for Normal Seats must be greater than or equal to Vendor Commission.");
+                    return false;
+                }
+
+                if (vip_tickets_balcony < 1 || vip_tickets_balcony > 30) {
+                    alert("VIP Tickets numbers (balcony) must be between 1 and 30.");
+                    return false;
+                }
+
+                if (vip_tickets_normal < 31 || vip_tickets_normal > 100) {
+                    alert("VIP Tickets Numbers (normal) must be between 31 and 100.");
+                    return false;
+                }
+                if(vendor_comission < 0){
+                    alert("Vendor Comission must be greater than or equal to 0.");
+                    return false;
+                }
+                if(length < 0 || length == 0){
+                    alert("Length of event must be greater than 0.");
+                    return false;
+                }
+                else {
+                    return true;
+                }
+            }
+        </script>
+
+</body>
+
+</html>

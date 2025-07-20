@@ -1,0 +1,27 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+    font-family: arial;
+}
+
+.bgImage{
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    background-image: url('https://github.com/apurv1205/SAMS/blob/master/SAMS/a.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+
+}
+
+.overplay{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0px;
+    left: 0px;
+    
+}

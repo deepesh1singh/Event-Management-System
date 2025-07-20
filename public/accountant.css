@@ -1,0 +1,154 @@
+.profile-btn {
+  position: fixed;
+  top: 140px;
+  left: 8px;
+  width: 60px; /* Adjust size as needed */
+  height: 60px; /* Adjust size as needed */
+  border-radius: 50%; /* Makes it circular */
+  overflow: hidden; /* Ensures image doesn't overflow */
+  z-index: 9999;
+}
+
+.profile-btn img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}/* Body and section styles */
+
+
+body {
+  margin: 0;
+  padding: 0;
+}
+
+section {
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-image: url(backgrounds/7.jpg);
+  min-height: 100vh;
+}
+
+/* LeftBox and content2 styles */
+section .leftBox {
+  width: 100%;
+  text-align: center;
+  padding: 50px;
+  box-sizing: border-box;
+}
+
+section .leftBox .content2 {
+  color: #fff;
+  padding: 40px;
+  transition: .5s;
+  display: flex;
+  justify-content: space-around;
+  /* Distribute space around flex items */
+}
+
+section .leftBox .content2 button {
+  flex: 1;
+  background-color: red;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+  margin-right: 10px;
+  height: 7vh;
+}
+
+section .leftBox .content2 button:hover {
+  background-color: orange;
+}
+
+/* Events section styles */
+section .events {
+  width: 100%;
+  box-sizing: border-box;
+  overflow-y: auto;
+  padding: 20px;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+section .events ul {
+  width: 100%;
+  margin: 0;
+  margin-top: 75px;
+  box-sizing: border-box;
+}
+
+section .events ul li {
+  overflow-y: scroll;
+  list-style: none;
+  background: rgba(255, 255, 255, 0.5);
+  box-sizing: border-box;
+  height: 300px;
+  /* Adjusted height to accommodate variable content */
+  margin: 15px;
+  display: flex;
+  flex-direction: column;
+  /* To stack time, event, and company details */
+}
+
+/* Time section styles */
+section .events ul li .time {
+  /* padding: 20px; */
+  height: 100px;
+  background: #262626;
+  box-sizing: border-box;
+  width: 100%;
+  text-align: center;
+  transition: .5s;
+}
+
+section .events ul li:hover .time {
+  background: #e91e63;
+}
+
+section .events ul li .time h2 {
+  margin: 0;
+  padding: 0;
+  color: #fff;
+  font-size: 60px;
+  line-height: 1;
+}
+
+section .events ul li .time h4 {
+  color: #fff;
+  margin-top: 5px;
+}
+
+section .events ul li .time h2 span {
+  font-size: 30px;
+}
+
+/* Event details styles */
+section .events ul li .details {
+  padding: 20px;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+section .events ul li .details h3 {
+  margin: 0;
+  padding: 0;
+  font-size: 22px;
+}
+
+section .events ul li .details h4 {
+  margin-top: 2px;
+}
+
+/* Company details styles */
+section .events ul li .company-details {
+  padding: 20px;
+  box-sizing: border-box;
+  width: 100%;
+  background-color: #f9f9f9;
+  /* Background color for company details */
+  border-top: 2px solid #ccc;
+  /* Separate company details from event details */
+}
+
+/* Additional styles can be added as needed */

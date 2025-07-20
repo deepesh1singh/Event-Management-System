@@ -1,0 +1,84 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins' , sans-serif;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-image: url(backgrounds/2.jpg);
+    margin: 0;
+    padding: 0;
+}
+.container {
+    max-width: 700px;
+    margin: 100px auto;
+    background-color: rgb(74, 52, 52);
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    text-align: center;
+}
+
+.profile-info {
+    margin-bottom: 20px;
+}
+
+.profile-info label {
+    font-weight: bold;
+}
+
+.profile-info input,
+.gender-select {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    margin-bottom: 15px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.gender-select label {
+    margin-right: 10px;
+    display: inline-block;
+}
+
+.gender-select input[type="radio"] {
+    margin-right: 5px;
+    display: inline-block;
+}
+
+.gender-select input[type="radio"] + label {
+    display: inline-block;
+}
+
+.button-container {
+    text-align: center;
+}
+
+.submit-btn {
+    display: inline-block;
+    padding: 10px;
+    background-color: #4caf50;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+    margin-right: 10px;
+}
+
+.submit-btn:hover {
+    background-color: #45a049;
+}
+
+.hidden {
+    display: none;
+}

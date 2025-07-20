@@ -1,0 +1,232 @@
+.profile-btn {
+  position: fixed;
+  top: 140px;
+  left: 8px;
+  width: 60px; /* Adjust size as needed */
+  height: 60px; /* Adjust size as needed */
+  border-radius: 50%; /* Makes it circular */
+  overflow: hidden; /* Ensures image doesn't overflow */
+  z-index: 9999;
+}
+
+.profile-btn img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+}
+
+section {
+  width: 100%;
+  height: 200vh;
+  background-size: cover;
+  background-image: url(backgrounds/7.jpg);
+  min-height: 100vh;
+
+}
+
+section .leftBox {
+  width: 50%;
+  height: 100%;
+  float: left;
+  padding: 50px;
+  padding-top: 175px;
+  box-sizing: border-box;
+  overflow-y: auto;
+}
+
+section .leftBox .content2 {
+  color: #fff;
+  background: rgba(0, 0, 0, 0.5);
+  padding: 40px;
+  transition: .5s;
+  height: 20vh;
+  overflow-y: auto;
+}
+
+/* section .leftBox .content2:hover {
+  background: #e91e63;
+} */
+
+.leftBox h1 {
+  font-size: 40px; /* Increase the font size */
+  color: whitesmoke;
+}
+
+section .leftBox .content2 h1 {
+  margin: 0;
+  padding: 0;
+  font-size: 50px;
+  text-transform: uppercase;
+  top: 100%;
+  margin-top: 50px;
+}
+
+.content2 button {
+  background-color: green;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+.content2 button:hover {
+  background-color: darkgreen;
+}
+
+section .events {
+  position: relative;
+  width: 50%;
+  height: 90%;
+  top: 10%;
+  background: rgba(0, 0, 0, 0.5);
+  float: right;
+  box-sizing: border-box;
+  overflow-y: auto;
+}
+
+section .events .search-bar {
+  position: relative;
+  width: 95%;
+  background-color: transparent;
+  backdrop-filter: blur(60px);
+  padding-left: 10px;
+  border-radius: 10px;
+  height: 50px;
+}
+
+section .events .search-bar input[type="text"] {
+  width: calc(100% - 85px);
+  /* Adjust to fit button */
+  padding: 8px;
+  border: none;
+  outline: none;
+  color: black;
+  backdrop-filter: blur(10px);
+  /* Transparent input background */
+}
+
+section .events .search-bar button {
+  width: 65px;
+  margin-top: 10px;
+  height: 50px;
+  /* Adjust as needed */
+  padding: 0px;
+  border: none;
+  outline: none;
+  background-color: red;
+  /* Red button */
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+section .events .search-bar button:hover {
+  background-color: darkred;
+}
+
+section .events ul {
+  width: 98%;
+  margin: 0;
+  margin-top: 50px;
+  box-sizing: border-box;
+}
+
+section .events ul li {
+  list-style: none;
+  background: aqua;
+  box-sizing: border-box;
+  height: 200px;
+  margin: 15px 0;
+}
+
+section .events ul li .time {
+  position: relative;
+  padding: 20px;
+  background: #262626;
+  box-sizing: border-box;
+  width: 30%;
+  height: 100%;
+  float: left;
+  text-align: center;
+  transition: .5s;
+}
+
+section .events ul li:hover .time {
+  background: #e91e63;
+}
+
+section .events ul li .time h2 {
+  position: absolute;
+  margin: 0;
+  padding: 0;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #fff;
+  font-size: 60px;
+  line-height: 30px;
+}
+
+section .events ul li .time h5 {
+  color: #fff;
+}
+
+section .events ul li .time h2 span {
+  font-size: 30px;
+}
+
+section .events ul li .details {
+  padding: 20px;
+  background: #fff;
+  box-sizing: border-box;
+  width: 70%;
+  height: 100%;
+  float: left;
+}
+
+section .events ul li .details h3 {
+  position: relative;
+  margin: 0;
+  padding: 0;
+  font-size: 22px;
+}
+
+section .events ul li .details p {
+  position: relative;
+  margin: 10px 0 0;
+  padding: 0;
+  font-size: 16px;
+}
+
+section .events ul li .details a {
+  display: inline-block;
+  text-decoration: none;
+  padding: 10px 15px;
+  border: 1.5px solid #262626;
+  margin-top: 8px;
+  font-size: 18px;
+  transition: .5s;
+}
+
+section .events ul li .details h5 {
+  margin-top: 8px;
+}
+
+section .events ul li .details a:hover {
+  background: #e91e63;
+  color: #fff;
+  border-color: #e91e63;
+}
+
+section .events ul li .details{
+  background: lightskyblue;
+  color: black;
+  border-color: #e91e63;
+}
