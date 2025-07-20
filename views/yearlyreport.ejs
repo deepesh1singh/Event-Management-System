@@ -1,0 +1,71 @@
+<!-- yearlyreport.ejs -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yearly Report</title>
+    <link rel="stylesheet" href="/yearlyreport.css">
+</head>
+
+<body>
+    <h1>Yearly Report</h1>
+
+    <h2>Financial Summary</h2>
+    <p>Total Expenditure: <%= totalExpenditure %>
+    </p>
+    <p>Total Vendor Payment: <%= totalVendorPayment %>
+    </p>
+    <p>Total Revenue: <%= totalRevenue %>
+    </p>
+    <p>Total Company Profit: <%= totalCompanyProfit %>
+    </p>
+    <% if(worktracker.length===0) { %>
+        <tr>
+            <td colspan="6">No work done yet</td>
+        </tr>
+        <% } else { %>
+            <tbody>
+
+                <h2>Worktrack Details</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>User ID</th>
+                            <th>Event ID</th>
+                            <th>Booking ID</th>
+                            <th>Work Done</th>
+                            <th>Created At</th>
+                        </tr>
+                    </thead>
+                    <% worktracker.forEach(work=> { %>
+                        <tr>
+                            <td>
+                                <%= work.name %>
+                            </td>
+                            <td>
+                                <%= work.user_id %>
+                            </td>
+                            <td>
+                                <%= work.event_id %>
+                            </td>
+                            <td>
+                                <%= work.booking_id %>
+                            </td>
+                            <td>
+                                <%= work.workDone %>
+                            </td>
+                            <td>
+                                <%= work.createdAt %>
+                            </td>
+                        </tr>
+                        <% }); %>
+            </tbody>
+            <% } %>
+                </table>
+</body>
+
+</html>

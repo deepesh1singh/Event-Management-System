@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        <%= title %>
+    </title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-image: url(backgrounds/2.jpg);
+            background-size: cover;
+            background-repeat: no-repeat;
+            /* color: white; */
+        }
+
+        form {
+            /* background: rgba(0, 0, 0, 0.5); */
+            padding: 20px;
+            border-radius: 10px;
+            border: 2rem;
+            width: 50%;
+            border-color: blue;
+        }
+
+        input[type="text"] {
+            background-color: lightgreen;
+            color: black;
+            
+            border: lightgreen;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            width: 100%;
+        }
+
+        input[type="submit"] {
+            /* background-color: white;
+            color: black; */
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <form id="restoreForm">
+        <label for="email">Email:</label><br>
+        <input type="text" id="email" name="email"><br>
+        <label for="ID">ID:</label><br>
+        <input type="text" id="ID" name="ID"><br>
+        <input type="submit" value="Restore User">
+    </form>
+
+    <script>
+        document.getElementById('restoreForm').addEventListener('submit', async function (event) {
+            event.preventDefault();
+
+            const email = document.getElementById('email').value;
+            const ID = document.getElementById('ID').value;
+
+            if (!email && !ID) {
+                alert("Please enter at least one of the fields");
+                return;
+            }
+
+            try {
+                const response = await fetch(`/index/:user_id/restore_user`, {
+                    method: 'PATCH',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ email, ID })
+                });
+
+                if (!response.ok) {
+                    throw new Error('Failed to restore user');
+                }
+
+                alert("User Restored Successfully");
+                // You can redirect or do any other action upon successful restoration
+            } catch (error) {
+                console.error("Error restoring user:", error);
+                alert("Error Restoring User. Try again later");
+            }
+        });
+    </script>
+</body>
+
+</html>

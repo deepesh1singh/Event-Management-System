@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SAMS | <%= titles %>
+    </title>
+    <link rel="stylesheet" href="/logout.css">
+    <link rel="stylesheet" href="/event.css">
+    <link rel="stylesheet" href="/footer.css">
+    <style>
+        .PAYMENT {
+            background-color: yellow;
+            /* Set button color to yellow */
+            /* Add any additional styling you want for the button */
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h2 class="logo"><img src="/backgrounds/logo1.jpeg" alt="LOGO"></h2>
+        <nav class="navigation">
+            <a href="/index">Home</a>
+            <a href="/index/about">About_Us</a>
+            <a href="/index/contact">Contact_Us</a>
+            <a href="/index/login" class="btnLogout-popup">Login</a>
+        </nav>
+    </header>
+    
+
+        <div class="contain">
+            <h1>
+                <%= Events.title %>
+            </h1>
+            <% if (Events.Performer && Events.Performer.length> 0) { %>
+                <label for="performer">PERFORMER</label>
+                <ul>
+                    <% Events.Performer.forEach(performer=> { %>
+                        <li>
+                            <%= performer %>
+                        </li>
+                        <% }); %>
+                </ul>
+                <% } %><br>
+
+                    <% if (Events.Guests.length> 0) { %>
+                        <label for="guest">Guest</label>
+                        <ul>
+                            <% Events.Guests.forEach(guest=> { %>
+                                <li>
+                                    <%= guest %>
+                                </li>
+                                <% }); %>
+                        </ul>
+                        <% } %><br>
+
+                            <% if (Events.Organisers.length> 0) { %>
+                                <label for="guest">Organisers</label>
+                                <ul>
+                                    <% Events.Organisers.forEach(organiser=> { %>
+                                        <li>
+                                            <%= organiser %>
+                                        </li>
+                                        <% }); %>
+                                </ul>
+                                <% } %><br>
+                                    <h1>Details</h1>
+                                    <p id="details">
+                                        <%= Events.details %>
+                                    </p>
+                                    <p>
+                                        <!-- Location: <%= Events.Location %> -->
+                                            <!-- <br> Auditorium: <%= Events.Auditorium %> -->
+                                            <br> Date: <%= Events.date.getDate() %><span>
+                                                    <%= Events.date.toLocaleString('default', { month: 'long' }) %>
+                                                </span><br>Time: <%= Events.date.getHours() %>:<%=
+                                                        Events.date.getMinutes() %>
+                                                        </span><br>
+                                                        Length of Event: <%= (Events.length -1) %> hrs<br>
+                                                            Number of Window Seats left: <%= Events.ticketsleft.balcony
+                                                                %><br>
+                                                                Number
+                                                                of Ordinary Seats
+                                                                left: <%= Events.ticketsleft.normal %><br> Price of
+                                                                    Window
+                                                                    Seat: Rs. <%= Events.price.balcony %> only<br> Price
+                                                                        of
+                                                                        Ordinary Seat: Rs. <%= Events.price.normal %>
+                                                                            only<br>
+                                    </p>
+                                    <button class="PAYMENT" id="paymentButton">Login Now</button>
+                                    <h5>Login Now to book your seats</h5>
+
+                                    <script>
+                                        document.getElementById("paymentButton").addEventListener("click", function () {
+                                            // Redirect to login page
+                                            window.location.href = "/index/login";
+                                        });
+                                    </script>
+        </div>
+        <%- include('partials/footer') %>
+</body>
+
+</html>

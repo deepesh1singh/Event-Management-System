@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sales</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+
+<body>
+    <h2>Sales Details</h2>
+    <% if (worktracks.length> 0) { %>
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Event</th>
+                    <th>Booking</th>
+                    <th>Work Done</th>
+                    <th>Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% worktracks.forEach(worktrack=> { %>
+                    <tr>
+                        <td>
+                            <%= worktrack.name %>
+                        </td>
+                        <td>
+                            <%= worktrack.event_id %>
+                        </td>
+                        <td>
+                            <%= worktrack.booking_id %>
+                        </td>
+                        <td>
+                            <%= worktrack.workDone %>
+                        </td>
+                        <td>
+                            <%= worktrack.createdAt %>
+                        </td>
+                    </tr>
+                    <% }); %>
+            </tbody>
+        </table>
+        <% } else { %>
+            <p>No worktracks found for this user.</p>
+            <% } %>
+</body>
+
+</html>

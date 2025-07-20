@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include("./partials/head.ejs") %>
+
+<body>
+  <div class="details content">
+    <h2 class="event-title">
+      <%= event.title %>
+    </h2>
+    <div class="content">
+      <!-- Add extra space below the title -->
+      <div class="spacer"></div>
+
+      <table class="booking-table">
+        <tr>
+          <th>Issuer:</th>
+          <td>
+            <%= book.issuerName %>
+          </td>
+        </tr>
+        <tr>
+          <th>Booking ID:</th>
+          <td>
+            <%= book._id %>
+          </td>
+        </tr>
+        <tr>
+          <th>Event ID:</th>
+          <td>
+            <%= event._id %>
+          </td>
+        </tr>
+        <tr>
+          <th>Seat Numbers:</th>
+          <td>
+            <strong>Balcony :</strong>
+            <%= book.seatNumbers.balcony.join(', ') %><br>
+            <strong>Normal :</strong> <%= book.seatNumbers.normal.join(' , ') %>
+          </td>
+        </tr>
+        <tr>
+          <th>Date and Time:</th>
+          <td><%= event.date.toDateString() %> at <%= event.date.toLocaleTimeString() %></td>
+        </tr>
+        <tr>
+          <th>Booking Time:</th>
+          <td><%= book.createdAt.toLocaleString() %></td>
+        </tr>
+        <tr>
+          <% const totalPrice = (book.NumberOfTickets.balcony * event.price.balcony) + (book.NumberOfTickets.normal * event.price.normal); %>
+          <th>Total Money:</th>
+          <td><%= totalPrice %> INR</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+  <style>
+    .event-title {
+      text-align: center; /* Center align the title */
+      margin-bottom: 20px; /* Add space below the title */
+    }
+
+    .spacer {
+      height: 20px; /* Adjust the height of the spacer */
+    }
+
+    .booking-table {
+      width: 80%; /* Adjust the width as needed */
+      margin: 0 auto; /* Center align the table */
+      border-collapse: collapse; /* Collapse table borders */
+    }
+
+    .booking-table th, .booking-table td {
+      padding: 8px;
+      border: 1px solid #dddddd; /* Add border to each cell */
+    }
+
+    .booking-table th {
+      text-align: left; /* Align header text to the left */
+    }
+  </style>
+</body>
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User List</title>
+    <style>
+        h1 {
+            margin: 0;
+            padding: 0;
+            /* height: 100vh; */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        table {
+            border-collapse: collapse;
+            width: 80%;
+            margin: auto;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        tr:hover {
+            background-color: #ddd;
+        }
+    </style>
+</head>
+<body>
+    <h1>User List</h1>
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>ID</th>
+            <th>Email</th>
+            <th>Person Type</th>
+            <th>Status</th>
+        </tr>
+        <% users.forEach(user => { %>
+            <tr>
+                <td><%= user.name %></td>
+                <td><%= user._id %></td>
+                <td><%= user.email %></td>
+                <td><%= user.personType %></td>
+                <td><%= user.is_deleted ? 'Inactive' : 'Active' %></td>
+            </tr>
+        <% }); %>
+    </table>
+</body>
+</html>

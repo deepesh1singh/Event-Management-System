@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SAMS | <%= title %>
+    </title>
+    <link rel="stylesheet" href="/nav.css">
+    <link rel="stylesheet" href="/slide.css">
+    <link rel="stylesheet" href="/footer.css">
+</head>
+
+<body>
+
+    <%- include('partials/nav') %>
+
+        <div class="section_top">
+            <div class="content1">
+                <h1>student auditorium management system</h1>
+                <!-- <a href="#">welcome</a> -->
+            </div>
+        </div>
+
+        <section>
+            <div class="leftBox">
+                <div class="content2">
+                    <h1>
+                        Events and Shows
+                    </h1>
+                    <p>
+                        Step into a world of unparalleled entertainment and excitement with our meticulously curated
+                        events and shows. Each production is a
+                        masterpiece of creativity and innovation, designed to captivate audiences of all ages and
+                        tastes. From electrifying concerts featuring
+                        renowned artists to mesmerizing theatrical performances that transport you to otherworldly
+                        realms, our lineup promises unforgettable
+                        experiences at every turn. Immerse yourself in the magic of live entertainment, where every
+                        moment is filled with passion, talent, and
+                        sheer brilliance. Book your tickets now and indulge in an unforgettable journey that will leave
+                        you craving for more. Don't miss out on
+                        the opportunity to be part of something extraordinary. Join us and let the magic unfold before
+                        your eyes.
+                    </p>
+                </div>
+            </div>
+            <div class="events">
+
+                <div class="search-bar">
+                    <input type="text" id="searchText" placeholder="Search...">
+                    <button type="button" id="searchButton">
+                        <h3>Search</h3>
+                    </button>
+                </div>
+                <script>
+                    const searchButton = document.getElementById('searchButton');
+                    const searchText = document.getElementById('searchText');
+
+                    searchButton.addEventListener('click', () => {
+                        const query = searchText.value.trim();
+
+                        // Redirect to /index/search with the search query as a query parameter
+                        window.location.href = `/index/search?searchText=${query}`;
+                    });
+                </script>
+                <ul>
+                    <% if (Events.length> 0) { %>
+                        <% Events.filter(event=> new Date(event.date) > new Date()).forEach(event=> { %>
+                            <li>
+                                <div class="time">
+                                    <h2>
+                                        <%= event.date.getDate() %> <br><span>
+                                                <%= event.date.toLocaleString('default', { month: 'long' }) %>
+                                            </span>
+                                    </h2>
+                                    <h5>
+                                        event starts at <%= event.date.getHours() %>:<%= event.date.getMinutes() %>
+                                                </span>
+                                    </h5>
+                                </div>
+                                <div class="details">
+                                    <h3>
+                                        <%= event.title %>
+                                    </h3>
+                                    <p>
+                                        <%= event.brief %>
+                                    </p>
+                                    <a href="/index/details/<%= event._id %>">View Details</a>
+
+                                    <h5>
+                                        <br><br>Hurry Up!<br>only <%= event.ticketsleft.balcony+event.ticketsleft.normal
+                                            %> tickets left
+                                    </h5>
+                                </div>
+                                <div style="clear:both;"></div>
+                            </li>
+                            <% }); %>
+                                <% } else { %>
+                                    <p>
+                                    <h1 style="color: white;">There are no Upcoming Events to display...</h1>
+                                    <p>
+                                        <% } %>
+                </ul>
+            </div>
+        </section>
+        <%- include('partials/footer') %>
+</body>
+
+</html>

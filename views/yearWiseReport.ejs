@@ -1,0 +1,67 @@
+<!-- FILEPATH: /home/lubesh/software_project/views/yearWiseReport.ejs -->
+
+<!--
+    This HTML file represents the YearWise Report view of the SAMS (Sample Accounting Management System) application.
+    It displays a table with financial data for each year, including company revenue, expenditure on management and vendors, and the total gained amount.
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SAMS | YearWise Report</title>
+    <link rel="stylesheet" href="/yearWiseReport.css">
+</head>
+
+<body>
+    <div class="container">
+        <h1>Company Financials</h1>
+        <table>
+            <tr>
+                <th>Year</th>
+                <th>Total Company Revenue</th>
+                <th>Total Company Expenditure on Management</th>
+                <th>Total Company Expenditure on Vendors</th>
+                <th>Total Company Gained</th>
+            </tr>
+            <% arrayOFyear.forEach((year, i)=> { %>
+                <tr>
+                    <td>
+                        <%= year %>
+                    </td>
+                    <td>
+                        <%= revenue[i] %>
+                    </td>
+                    <td>
+                        <%= companyExpenditure[i] %>
+                    </td>
+                    <td>
+                        <%= vendorExpenditure[i] %>
+                    </td>
+                    <td>
+                        <%= gained[i] %>
+                    </td>
+                </tr>
+                <% }); %>
+                    <tr class="total">
+                        <td>Total</td>
+                        <td>
+                            <%= totalRevenue %>
+                        </td>
+                        <td>
+                            <%= totalCompanyExpenditure %>
+                        </td>
+                        <td>
+                            <%= totalVendorExpenditure %>
+                        </td>
+                        <td>
+                            <%= totalGained %>
+                        </td>
+                    </tr>
+        </table>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SAMS| Ticket Cancelling</title>
+    <link rel="stylesheet" href="/payment.css">
+    <link rel="stylesheet" href="/footer.css">
+    <link rel="stylesheet" href="/logout.css">
+</head>
+
+<body>
+    <%- include('partials/logout') %>
+        <h1>Ticket Cancelling</h1>
+        <form id="paymentForm">
+            <label for="SalesManId">SalesMan ID(please do not change it):</label>
+            <input type="text" id="SalesManId" name="SalesManId" value="<%= userId %>" required><br><br>
+
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" placeholder="See issuer Name in your Ticket" required><br><br>
+
+            <label for="EventId">Event ID:</label>
+            <input type="text" id="EventId" name="EventId" placeholder="See your ticket" required><br><br>
+
+            <label for="TicketId">Ticket ID:</label>
+            <input type="text" id="TicketId" name="TicketId" placeholder="See your Ticket" required><br><br>
+
+            <label for="transactionId">Transaction ID:</label>
+            <input type="text" id="transactionId" name="transactionId" required><br><br>
+
+            <label for="MUID">Merchant User ID:</label>
+            <input type="text" id="MUID" name="MUID" required><br><br>
+
+            <button type="button" id="cancelButton">Cancel Ticket</button>
+        </form>
+        <%- include('partials/footer') %>
+
+            <script>
+                document.addEventListener('DOMContentLoaded', function () {
+                    const cancelButton = document.getElementById('cancelButton');
+                    cancelButton.addEventListener('click', function () {
+                        const transactionId = document.getElementById('transactionId').value;
+                        const MUID = document.getElementById('MUID').value;
+                        const name = document.getElementById('name').value;
+                        const EventId = document.getElementById('EventId').value;
+                        const TicketId = document.getElementById('TicketId').value;
+                        const userId = document.getElementById('SalesManId').value;
+
+                        const cancelURL = `/index/${userId}/details/${EventId}/booking/${TicketId}/payment/delete`;
+
+                        fetch(cancelURL, {
+                            method: 'PATCH'
+                        })
+                            .then(response => {
+                                if (response.ok) {
+                                    return response.json(); // Parse the response body as JSON
+                                } else {
+                                    alert("Failed to cancel ticket. Ckeck the data filled in the form or try again later.");
+                                }
+                                if(response.status === 505){
+                                    alert("Ticket Already Deleated. Please try again later.");
+                                }
+                            })
+                            .then(data => {
+                                if (data.refundAmount !== undefined) {
+                                    alert(`Ticket successfully canceled. Refunded Amount: Rs. ${data.refundAmount}`);
+                                    const workTrackURL = `/index/${userId}/details/${EventId}/booking/${TicketId}/worktrack`;
+                                    fetch(workTrackURL, {
+                                        method: 'POST',
+                                        headers: {
+                                            'Content-Type': 'application/json'
+                                        },
+                                        body: JSON.stringify({ workDone: 'Ticket_Cancellation' })
+                                    })
+                                        .then(response => {
+                                            if (response.ok) {
+                                                console.log('Work tracker updated successfully.');
+                                            } else {
+                                                console.error('Failed to update work tracker.');
+                                            }
+                                        })
+                                        .catch(error => {
+                                            console.error('Error occurred while updating work tracker:', error);
+                                        });
+                                }
+                            })
+                            .catch(error => {
+                                console.error('Error occurred while canceling ticket:', error);
+                                alert("Failed to cancel ticket.Please check the Filled DATA again in the form. Please try again later.")
+                            });
+                    }
+                    );
+                });
+
+            </script>
+</body>
+
+</html>

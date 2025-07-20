@@ -1,0 +1,107 @@
+<!-- FILEPATH: /home/lubesh/software_project/views/worktracker.ejs -->
+
+<!--
+This HTML file is a view template for displaying work tracker data.
+It contains a table that shows the details of work tracks, such as name, user ID, event ID, booking ID, and work done.
+
+The template uses EJS (Embedded JavaScript) syntax to dynamically render the data received from the server.
+
+The structure of the file is as follows:
+- The <head> section contains meta tags and the page title.
+- The <body> section contains a container div and a table.
+- The table has a header row with column names and a body section that iterates over the worktracks array to display each work track as a row.
+
+CSS styles are defined within the <style> tag to format the table and the container.
+
+Variables used in the template:
+- title: The title of the page.
+- worktracks: An array of work track objects, each containing the following properties:
+    - name: The name of the work track.
+    - user_id: The user ID associated with the work track.
+    - event_id: The event ID associated with the work track.
+    - booking_id: The booking ID associated with the work track.
+    - workDone: The work done for the track.
+
+Note: This file is intended to be used as a view template with a server-side framework that supports EJS.
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        <%= title %>
+    </title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            text-align: center;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 80%;
+            margin: auto;
+        }
+
+        th,
+        td {
+            border: 1px solid #dddddd;
+            padding: 8px;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>
+            <%= title %>
+        </h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>User ID</th>
+                    <th>Event ID</th>
+                    <th>Booking ID</th>
+                    <th>Work Done</th>
+                    <th>Timestamp</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% worktracks.forEach(worktrack=> { %>
+                    <tr>
+                        <td>
+                            <%= worktrack.name %>
+                        </td>
+                        <td>
+                            <%= worktrack.user_id %>
+                        </td>
+                        <td>
+                            <%= worktrack.event_id %>
+                        </td>
+                        <td>
+                            <%= worktrack.booking_id %>
+                        </td>
+                        <td>
+                            <%= worktrack.workDone %>
+                        </td>
+                        <td>
+                            <%= worktrack.createdAt %>
+                        </td>
+                    </tr>
+                    <% }); %>
+            </tbody>
+        </table>
+    </div>
+</body>
+
+</html>

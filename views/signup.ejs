@@ -1,0 +1,73 @@
+<!-- FILEPATH: /home/lubesh/software_project/views/signup.ejs -->
+
+<!--
+This file represents the signup page of the software project.
+It contains a registration form where users can input their name, email, and password to create an account.
+The form includes input validation for the name, email, and password fields.
+Users can also toggle the visibility of the password field using the eye icon.
+The form submission is handled by the "/index/signup" route.
+Existing users can navigate to the login page using the provided link.
+The page also includes external script references for the ionicons library.
+-->
+
+<html lang="en">
+<!-- ... -->
+</html>
+<html lang="en">
+<%- include('partials/head') %>
+
+    <body>
+        <%- include('partials/nav') %>
+            <div class="wrapper2">
+                <a href="/index" class="icon-close">
+                    <ion-icon name="close-outline"></ion-icon>
+                </a>
+                <div class="form-box register">
+                    <h2>Registration</h2>
+                    <form action="/index/signup" method="POST">
+                        <div class="input-box">
+                            <span class="icon">
+                                <ion-icon name="person-outline"></ion-icon>
+                            </span>
+                            <input type="text" name="name" required>
+                            <label>name</label>
+                        </div>
+                        <div class="input-box">
+                            <span class="icon"><ion-icon name="mail"></ion-icon></span>
+                            <input type="email" name="email" required>
+                            <label>email</label>
+                        </div>
+                        <div class="input-box">
+                            <span class="icon" id="togglePassword">
+                                <ion-icon name="eye-off-outline"></ion-icon>
+                            </span>
+                            <input type="password" name="password" id="password" required>
+                            <label for="password">Password</label>
+                        </div>
+                        <!-- <div class="remember-forgot">
+                            <label><input type="checkbox">agree to the terms & conditions</label>
+                        </div> -->
+                        <button type="submit" class="btn">Register</button>
+                        <div class="login-register">
+                            <p> Already have an account? <a href="/index/login" class="login-link">Login</a></p>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+            <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+
+            <script>
+                const togglePassword = document.getElementById('togglePassword');
+                const passwordInput = document.getElementById('password');
+
+                togglePassword.addEventListener('click', function () {
+                    const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+                    passwordInput.setAttribute('type', type);
+                    togglePassword.querySelector('ion-icon').setAttribute('name', type === 'password' ? 'eye-off-outline' : 'eye-outline');
+                });
+            </script>
+            <%- include('./partials/footer') %>
+    </body>
+
+</html>

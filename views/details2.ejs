@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SAMS | <%= titles %>
+    </title>
+    <link rel="stylesheet" href="/logout.css">
+    <link rel="stylesheet" href="/event.css">
+    <link rel="stylesheet" href="/footer.css">
+    <style>
+        .PAYMENT {
+            background-color: yellow;
+            /* Set button color to yellow */
+            /* Add any additional styling you want for the button */
+        }
+    </style>
+</head>
+
+<body>
+    <%- include('partials/logout') %>
+
+        <div class="contain">
+            <h1>
+                <%= Events.title %>
+            </h1>
+            <% if (Events.Performer && Events.Performer.length> 0) { %>
+                <label for="performer">PERFORMER</label>
+                <ul>
+                    <% Events.Performer.forEach(performer=> { %>
+                        <li>
+                            <%= performer %>
+                        </li>
+                        <% }); %>
+                </ul>
+                <% } %><br>
+
+                    <% if (Events.Guests.length> 0) { %>
+                        <label for="guest">Guest</label>
+                        <ul>
+                            <% Events.Guests.forEach(guest=> { %>
+                                <li>
+                                    <%= guest %>
+                                </li>
+                                <% }); %>
+                        </ul>
+                        <% } %><br>
+
+                            <% if (Events.Organisers.length> 0) { %>
+                                <label for="guest">Organisers</label>
+                                <ul>
+                                    <% Events.Organisers.forEach(organiser=> { %>
+                                        <li>
+                                            <%= organiser %>
+                                        </li>
+                                        <% }); %>
+                                </ul>
+                                <% } %><br>
+                                    <h1>Details</h1>
+                                    <p id="details">
+                                        <%= Events.details %>
+                                    </p>
+                                    <p>
+                                        <!-- Location: <%= Events.Location %> -->
+                                        <!-- <br> Auditorium: <%= Events.Auditorium %> -->
+                                        <br> Date: <%= Events.date.getDate() %><span>
+                                                <%= Events.date.toLocaleString('default', { month: 'long' }) %>
+                                            </span><br>Time: <%= Events.date.getHours() %>:<%= Events.date.getMinutes()
+                                                    %>
+                                                    </span><br>
+                                                    Length of Event: <%= (Events.length -1) %> hrs<br>
+                                                        Number of Window Seats left: <%= Events.ticketsleft.balcony %>
+                                                            <br>
+                                                            Number
+                                                            of Ordinary Seats
+                                                            left: <%= Events.ticketsleft.normal %><br> Price of
+                                                                Window
+                                                                Seat: Rs. <%= Events.price.balcony %> only<br> Price
+                                                                    of
+                                                                    Ordinary Seat: Rs. <%= Events.price.normal %>
+                                                                        only<br>
+                                    </p>
+                                    <button class="PAYMENT" id="paymentButton">Book seats
+                                        Now</button>
+                                    <h5>Click on the button to proceed to book seats for the show</h5>
+
+                                    <script>
+                                        document.getElementById("paymentButton").addEventListener("click", function () {
+                                            // Get the current URL
+                                            const currentURL = window.location.href;
+                                            const redirectURL = currentURL + '/booking'; // Append event id to the current URL
+                                            window.location.href = redirectURL;
+                                        });
+                                    </script>
+
+        </div>
+        <%- include('partials/footer') %>
+</body>
+
+</html>

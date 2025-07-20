@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SAMS | <%= title %>
+    </title>
+    <link rel="stylesheet" href="/logout.css">
+    <link rel="stylesheet" href="/manager.css">
+    <link rel="stylesheet" href="/footer.css">
+</head>
+
+<body>
+
+    <%- include('partials/logout') %>
+
+        <section>
+            <div class="leftBox">
+                <div class="content2" id="button">
+                    <button onclick="program()">
+                        <h1>Add an Event</h1>
+                    </button>
+                    <script>
+                        function program() {
+                            let currentUrl = window.location.href; // Use let instead of const
+                            window.location.href = currentUrl + '/AddEvent';
+                        }
+                    </script>
+
+                    <button onclick="Accountant()">
+                        <h1>Add an Accountant</h1>
+                    </button>
+                    <script>
+                        function Accountant() {
+                            let currentUrl = window.location.href; // Use let instead of const
+                            window.location.href = currentUrl + '/Accountant';
+                        }
+                    </script>
+
+                    <button onclick="Vendor()">
+                        <h1>Add A SalesPerson</h1>
+                    </button>
+                    <script>
+                        function Vendor() {
+                            let currentUrl = window.location.href; // Use let instead of const
+                            window.location.href = currentUrl + '/vendor';
+                        }
+                    </script>
+                    <button onclick="overallReport()">
+                        <h1>Overall Report</h1>
+                    </button>
+                    <script>
+                        function overallReport() {
+                            let currentUrl = window.location.href; // Use let instead of const
+                            window.location.href = currentUrl + '/yearWiseReport';
+                        }
+                    </script>
+                    <button onclick="Worktracker()">
+                        <h1>SalesPerson's WorkTrack</h1>
+                    </button>
+                    <script>
+                        function Worktracker() {
+                            let currentUrl = window.location.href; // Use let instead of const
+                            window.location.href = currentUrl + '/worktrack';
+                        }
+                    </script>
+                    <button onclick="Delete_User()">
+                        <h1>Delete User</h1>
+                    </button>
+                    <script>
+                        function Delete_User() {
+                            let currentUrl = window.location.href; // Use let instead of const
+                            window.location.href = currentUrl + '/deleteuser';
+                        }
+                    </script>
+                    <button onclick="Restore_User()">
+                        <h1>Restore_User</h1>
+                    </button>
+                    <script>
+                        function Restore_User() {
+                            let currentUrl = window.location.href; // Use let instead of const
+                            window.location.href = currentUrl + '/restore_user';
+                        }
+                    </script>
+                    <button onclick="User_List()">
+                        <h1>user List</h1>
+                    </button>
+                    <script>
+                        function User_List() {
+                            let currentUrl = window.location.href; // Use let instead of const
+                            window.location.href = currentUrl + '/userlist';
+                        }
+                    </script>
+
+                </div>
+            </div>
+
+            <a href="" id="profileLink">
+                <div class="profile-btn">
+                    <img src="/backgrounds/profile.jpg" alt="Profile Picture">
+                </div>
+            </a>
+            <script>
+                const currentUrl = window.location.href;
+
+                // Get the <a> tag by its ID
+                const profileLink = document.getElementById('profileLink');
+
+                // Set the href attribute of the <a> tag
+                profileLink.href = currentUrl + '/profile';
+            </script>
+            <div class="events">
+                <div class="events">
+                    <div class="search-bar">
+                        <input type="text" id="yearlyReporttext" placeholder="Enter the year to see its year wise report...">
+                        <button type="button" id="yearlyReport">
+                            <h3>Yearly Report</h3>
+                        </button>
+
+                        <input type="text" id="search_salespersontxt" placeholder="Enter the user_id to see its worktrack...">
+                        <button type="button" id="search_salesperson">
+                            <h3>User Worktrack</h3>
+                        </button>
+
+                        <input type="text" id="searchText" placeholder="Search...">
+                        <button type="button" id="searchButton">
+                            <h3>Search</h3>
+                        </button>
+                    </div>
+                    <script>
+                        const yearButton = document.getElementById('yearlyReport');
+                        const yearlyReporttext = document.getElementById('yearlyReporttext');
+                        yearButton.addEventListener('click', () => {
+                            const query = yearlyReporttext.value.trim();
+                            if(!query||query.length!==4) return alert('Please enter a valid year');
+                            const currentURL = window.location.href; // Get the current URL
+                            const downloadURL = currentURL + `/yearlyreport?searchText=${query}`; // Append user's id to the current URL
+                            window.location.href = downloadURL;
+                        });
+                    </script>
+                    <script>
+                        const search_salesperson = document.getElementById('search_salesperson');
+                        const search_salespersontxt = document.getElementById('search_salespersontxt');
+                        search_salesperson.addEventListener('click', () => {
+                            const query = search_salespersontxt.value.trim();
+                            if(!query||query.length!==24) return alert('Please enter a valid ID');
+                            const currentURL = window.location.href; // Get the current URL
+                            const downloadURL = currentURL + `/search_salesperson?searchText=${query}`; // Append user's id to the current URL
+                            window.location.href = downloadURL;
+                        });
+                    </script>
+                    <script>
+                        const searchButton = document.getElementById('searchButton');
+                        const searchText = document.getElementById('searchText');
+
+                        searchButton.addEventListener('click', () => {
+                            const query = searchText.value.trim();
+                            const currentURL = window.location.href; // Get the current URL
+                            const downloadURL = currentURL + `/search?searchText=${query}`; // Append user's id to the current URL
+                            window.location.href = downloadURL;
+                        });
+                    </script>
+                    <ul>
+                        <% if (Events.length> 0) { %>
+                            <% Events.forEach(event=> { %>
+                                <% const eventYear=event.date.getFullYear(); %>
+                                    <% const currentYear=new Date().getFullYear(); %>
+                                        <!-- <% if (eventYear===currentYear) { %> -->
+                                        <li>
+                                            <div class="time">
+                                                <h2>
+                                                    <%= event.date.getDate() %><span>
+                                                            <%= event.date.toLocaleString('default', { month: 'long' })
+                                                                %>
+                                                        </span>
+                                                </h2>
+                                                <h4>Event starts at <%= event.date.getHours() %>:<%=
+                                                            event.date.getMinutes() %>
+                                                </h4>
+                                            </div>
+                                            <div class="details">
+                                                <h3>
+                                                    <%= event.title %>
+                                                </h3>
+                                            </div>
+                                            <div class="details">
+                                                <h4>Total Balcony Tickets Sold: <%= event.tickets_sold.balcony %>
+                                                </h4>
+                                                <h4>Total Normal Tickets Sold: <%= event.tickets_sold.normal %>
+                                                </h4>
+                                                <h4>Total Balcony Tickets Left: <%= event.ticketsleft.balcony %>
+                                                </h4>
+                                                <h4>Total Normal Tickets Left: <%= event.ticketsleft.normal %>
+                                                </h4>
+                                                <a href="#" onclick="viewDetails('<%= event._id %>')">View Details</a>
+                                                <script>
+                                                    function viewDetails(eventId) {
+                                                        const currentURL = window.location.href; // Get the current URL
+                                                        const detailsURL = currentURL + '/details/' + eventId; // Append event id to the current URL
+                                                        window.location.href = detailsURL; // Redirect to the details URL
+                                                        event.preventDefault(); // Prevent default behavior of the anchor tag
+                                                    }
+                                                </script>
+                                                <% let totalVendorPayments=0; %>
+                                                    <% if (event.vendor_id.balcony && event.vendor_id.balcony.length>0)
+                                                        { %>
+                                                        <% event.vendor_id.balcony.forEach((vendorId, index)=> { %>
+                                                            <% let vendor=user.find(user=> user._id.toString() ===
+                                                                vendorId.toString()); %>
+                                                                <% if (vendor) { %>
+                                                                    <% const
+                                                                        vendorPayment=event.vendor_tickets.balcony[index]
+                                                                        * event.vendor_comission; %>
+                                                                        <h4>
+                                                                            Vendor: <%= vendor.name %> (ID: <%= vendorId
+                                                                                    %>) :
+                                                                                    Balcony Tickets: <%=
+                                                                                        event.vendor_tickets.balcony[index]
+                                                                                        %>:
+                                                                                        Balcony tickets cancelled: <%=
+                                                                                            event.vendor_cancelled.balcony[index]
+                                                                                            %>:
+                                                                                            Vendor Payment: <%=
+                                                                                                vendorPayment %>
+                                                                        </h4>
+                                                                        <% totalVendorPayments +=vendorPayment; %>
+                                                                            <% } %>
+                                                                                <% }); %>
+                                                                                    <% } %>
+
+                                                                                        <% if (event.vendor_id.normal &&
+                                                                                            event.vendor_id.normal.length>
+                                                                                            0) { %>
+                                                                                            <% event.vendor_id.normal.forEach((vendorId,
+                                                                                                index)=> { %>
+                                                                                                <% let
+                                                                                                    vendor=user.find(user=>
+                                                                                                    user._id.toString()
+                                                                                                    ===
+                                                                                                    vendorId.toString());
+                                                                                                    %>
+                                                                                                    <% if (vendor) { %>
+                                                                                                        <% const
+                                                                                                            vendorPayment=event.vendor_tickets.normal[index]
+                                                                                                            *
+                                                                                                            event.vendor_comission;
+                                                                                                            %>
+                                                                                                            <h4>
+                                                                                                                Vendor:
+                                                                                                                <%= vendor.name
+                                                                                                                    %>
+                                                                                                                    (ID:
+                                                                                                                    <%= vendorId
+                                                                                                                        %>
+                                                                                                                        )
+                                                                                                                        :
+                                                                                                                        Normal
+                                                                                                                        Tickets:
+                                                                                                                        <%= event.vendor_tickets.normal[index]
+                                                                                                                            %>
+                                                                                                                            :
+                                                                                                                            Normal
+                                                                                                                            tickets
+                                                                                                                            cancelled:
+                                                                                                                            <%= event.vendor_cancelled.normal[index]
+                                                                                                                                %>
+                                                                                                                                :
+                                                                                                                                Vendor
+                                                                                                                                Payment:
+                                                                                                                                <%= vendorPayment
+                                                                                                                                    %>
+                                                                                                            </h4>
+                                                                                                            <% totalVendorPayments
+                                                                                                                +=vendorPayment;
+                                                                                                                %>
+                                                                                                                <% } %>
+                                                                                                                    <% });
+                                                                                                                        %>
+                                                                                                                        <% }
+                                                                                                                            %>
+
+
+                                                                                                                            <% let
+                                                                                                                                expen_Performer=0;
+                                                                                                                                %>
+                                                                                                                                <% if
+                                                                                                                                    (event.expen_Performer.length>
+                                                                                                                                    0)
+                                                                                                                                    {
+                                                                                                                                    %>
+                                                                                                                                    <% event.expen_Performer.forEach((performer,
+                                                                                                                                        index)=>
+                                                                                                                                        {
+                                                                                                                                        %>
+                                                                                                                                        <% expen_Performer
+                                                                                                                                            +=event.expen_Performer[index];
+                                                                                                                                            %>
+                                                                                                                                            <% });
+                                                                                                                                                %>
+                                                                                                                                                <% }
+                                                                                                                                                    %>
+                                                                                                                                                    <% const
+                                                                                                                                                        companyRevenue=(event.tickets_sold.balcony
+                                                                                                                                                        *
+                                                                                                                                                        event.price.balcony)
+                                                                                                                                                        +
+                                                                                                                                                        (event.tickets_sold.normal
+                                                                                                                                                        *
+                                                                                                                                                        event.price.normal)+event.extra_Amount;
+                                                                                                                                                        %>
+                                                                                                                                                        <% const
+                                                                                                                                                            companyExpenditure=event.expen_Stage_Management
+                                                                                                                                                            +
+                                                                                                                                                            event.expen_Sound_Engineer
+                                                                                                                                                            +
+                                                                                                                                                            event.expen_Light_Engineer
+                                                                                                                                                            +
+                                                                                                                                                            event.expen_Catering
+                                                                                                                                                            +
+                                                                                                                                                            event.expen_Security
+                                                                                                                                                            +
+                                                                                                                                                            event.expen_Marketing
+                                                                                                                                                            +
+                                                                                                                                                            event.expen_Cleaning
+                                                                                                                                                            +
+                                                                                                                                                            event.expen_Other
+                                                                                                                                                            +
+                                                                                                                                                            expen_Performer
+                                                                                                                                                            %>
+
+                                                                                                                                                            <h4>Total
+                                                                                                                                                                Company
+                                                                                                                                                                Expenditure
+                                                                                                                                                                on
+                                                                                                                                                                Stage
+                                                                                                                                                                Management:
+                                                                                                                                                                <%= event.expen_Stage_Management
+                                                                                                                                                                    %>
+                                                                                                                                                            </h4>
+                                                                                                                                                            <h4>Total
+                                                                                                                                                                Company
+                                                                                                                                                                Expenditure
+                                                                                                                                                                on
+                                                                                                                                                                Sound
+                                                                                                                                                                Engineer:
+                                                                                                                                                                <%= event.expen_Sound_Engineer
+                                                                                                                                                                    %>
+                                                                                                                                                            </h4>
+                                                                                                                                                            <h4>Total
+                                                                                                                                                                Company
+                                                                                                                                                                Expenditure
+                                                                                                                                                                on
+                                                                                                                                                                Light
+                                                                                                                                                                Engineer:
+                                                                                                                                                                <%= event.expen_Light_Engineer
+                                                                                                                                                                    %>
+                                                                                                                                                            </h4>
+                                                                                                                                                            <h4>Total
+                                                                                                                                                                Company
+                                                                                                                                                                Expenditure
+                                                                                                                                                                on
+                                                                                                                                                                Catering:
+                                                                                                                                                                <%= event.expen_Catering
+                                                                                                                                                                    %>
+                                                                                                                                                            </h4>
+                                                                                                                                                            <h4>Total
+                                                                                                                                                                Company
+                                                                                                                                                                Expenditure
+                                                                                                                                                                on
+                                                                                                                                                                Security:
+                                                                                                                                                                <%= event.expen_Security
+                                                                                                                                                                    %>
+                                                                                                                                                            </h4>
+                                                                                                                                                            <h4>Total
+                                                                                                                                                                Company
+                                                                                                                                                                Expenditure
+                                                                                                                                                                on
+                                                                                                                                                                Marketing:
+                                                                                                                                                                <%= event.expen_Marketing
+                                                                                                                                                                    %>
+                                                                                                                                                            </h4>
+                                                                                                                                                            <h4>Total
+                                                                                                                                                                Company
+                                                                                                                                                                Expenditure
+                                                                                                                                                                on
+                                                                                                                                                                Cleaning:
+                                                                                                                                                                <%= event.expen_Cleaning
+                                                                                                                                                                    %>
+                                                                                                                                                            </h4>
+                                                                                                                                                            <h4>Total
+                                                                                                                                                                Company
+                                                                                                                                                                Expenditure
+                                                                                                                                                                on
+                                                                                                                                                                Other:
+                                                                                                                                                                <%= event.expen_Other
+                                                                                                                                                                    %>
+                                                                                                                                                            </h4>
+                                                                                                                                                            <h4>Total
+                                                                                                                                                                Company
+                                                                                                                                                                Expenditure
+                                                                                                                                                                on
+                                                                                                                                                                Performer:
+                                                                                                                                                                <%= expen_Performer
+                                                                                                                                                                    %>
+                                                                                                                                                            </h4>
+
+                                            </div>
+                                            <div class="company-details">
+                                                <h4>Total Company Revenue: <%= companyRevenue %>
+                                                </h4>
+                                                <h4>Total Company Expenditure on Management: <%= companyExpenditure %>
+                                                </h4>
+                                                <h4>Total Company Expenditure on Vendors: <%= totalVendorPayments %>
+                                                </h4>
+                                                <h4>Total Company Gained: <%= companyRevenue - companyExpenditure -
+                                                        totalVendorPayments %>
+                                                </h4>
+                                            </div>
+                                            <div style="clear:both;"></div>
+                                            <!-- <% } %> -->
+                                            <% }); %>
+                                                <% } else { %>
+                                                    <p>
+                                                    <h1 style="color: white;">There are no Events to display
+                                                        yet...</h1>
+                                                    </p>
+                                                    <% } %>
+                                        </li>
+                    </ul>
+                </div>
+        </section>
+        <%- include('partials/footer') %>
+</body>
+
+</html>

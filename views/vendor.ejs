@@ -1,0 +1,199 @@
+<!-- /**
+ * This HTML code represents the vendor view of a software project.
+ * It displays the tickets sold by the vendor, the total amount earned, and upcoming events.
+ * The code includes JavaScript functions for canceling a ticket, redirecting to the user's profile, and searching for events.
+ * It also includes event details and a function to view event details.
+ */ -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SAMS | <%= title %>
+    </title>
+    <link rel="stylesheet" href="/logout.css">
+    <link rel="stylesheet" href="/vendor.css">
+    <link rel="stylesheet" href="/footer.css">
+</head>
+
+<body>
+
+    <%- include('partials/logout') %>
+
+        <section>
+            <div class="leftBox">
+                <button onclick="program()"
+                    style="background-color: red; color: white; height: 80px; border: none;margin-top: 90px; padding: 10px 20px; cursor: pointer; display: flex; justify-content: center; align-items: center; font-size: 2em;">
+                    Cancel Ticket
+                </button>
+                <script>
+                    function program() {
+                        let currentUrl = window.location.href; // Use let instead of const
+                        window.location.href = currentUrl + '/cancelTicket';
+                    }
+                </script>
+                <div class="centered">
+                    <h1>Tickets Sold</h1>
+                    <div class="content2">
+                        <ul>
+                            <% let TotalGrandAmount=0; %>
+                                <% if (user.tickets_ids && user.tickets_ids.length> 0) { %>
+                                    <% user.tickets_ids.forEach(ticketID=> { %>
+                                        <% let booking_data=booking.find(book=> book._id.toString() ===
+                                            ticketID.toString()); %>
+                                            <% if (booking_data !=="{}" && booking_data && booking_data!=="" ) { %>
+                                                <% let ticket=Event2.find(event=> event._id.toString() ===
+                                                    booking_data.ticket_id.toString()); %>
+                                                    <% if (ticket !=="{}" && ticket && ticket!=="" ) { %>
+                                                        <li>
+                                                            <!-- <div class="ticket-details">
+                                                                <p><strong>Title:</strong>
+                                                                    <%= ticket.title %>
+                                                                </p>
+                                                                <p><strong>Date:</strong>
+                                                                    <%= ticket.date.toDateString() %>
+                                                                </p>
+                                                                <p><strong>Time:</strong>
+                                                                    <%= ticket.date.toLocaleTimeString() %>
+                                                                </p>
+                                                            </div> -->
+                                                            <div class="time">
+                                                                <h2>
+                                                                    <%= ticket.date.getDate() %> <br><span>
+                                                                            <%= ticket.date.toLocaleString('default', { month: 'long' }) %>
+                                                                        </span>
+                                                                </h2>
+                                                                <h5>Event starts at <%= ticket.date.getHours() %>:<%= ticket.date.getMinutes() %>
+                                                                </h5>
+                                                            </div>
+                                                            <div class="details">
+                                                                <h3>
+                                                                    <%= ticket.title %>
+                                                                </h3>
+                                                                <p>
+                                                                    Number of Balcony Tickets Booked:
+                                                                    <%= booking_data.NumberOfTickets.balcony %>
+                                                                </p>
+                                                                <p>
+                                                                    Amount From Balcony Tickets:
+                                                                    <%= booking_data.NumberOfTickets.balcony *
+                                                                        ticket.vendor_comission %>
+                                                                </p>
+                                                                <p>
+                                                                    Number of Normal Tickets Booked:
+                                                                    <%= booking_data.NumberOfTickets.normal %>
+                                                                </p>
+                                                                <p>
+                                                                    Amount From Normal Tickets:
+                                                                    <%= booking_data.NumberOfTickets.normal *
+                                                                        ticket.vendor_comission %>
+                                                                </p>
+                                                                <p>
+                                                                    <% let
+                                                                        totalAmount=booking_data.NumberOfTickets.balcony
+                                                                        * ticket.vendor_comission +
+                                                                        booking_data.NumberOfTickets.normal *
+                                                                        ticket.vendor_comission; %>
+                                                                        Total Amount:
+                                                                        <%= totalAmount %>
+                                                                            <% TotalGrandAmount +=totalAmount; %>
+                                                                </p>
+                                                            </div>
+                                                        </li>
+                                                        <% } %>
+                                                            <% } %>
+                                                                <% }); %>
+                                                                    <% } else { %>
+                                                                        <p>No tickets Sold.</p>
+                                                                        <% } %>
+                        </ul>
+                    </div>
+                    <h1>Total Amount Earned
+                        <%= TotalGrandAmount %> INR
+                    </h1>
+                </div>
+            </div>
+
+            <a href="" id="profileLink">
+                <div class="profile-btn">
+                    <img src="/backgrounds/profile.jpg" alt="Profile Picture">
+                </div>
+            </a>
+            <script>
+                const currentUrl = window.location.href;
+
+                // Get the <a> tag by its ID
+                const profileLink = document.getElementById('profileLink');
+
+                // Set the href attribute of the <a> tag
+                profileLink.href = currentUrl + '/profile';
+            </script>
+            <div class="events">
+                <div class="search-bar">
+                    <input type="text" id="searchText" placeholder="Search...">
+                    <button type="button" id="searchButton">
+                        <h3>Search</h3>
+                    </button>
+                </div>
+                <script>
+                    const searchButton = document.getElementById('searchButton');
+                    const searchText = document.getElementById('searchText');
+
+                    searchButton.addEventListener('click', () => {
+                        const query = searchText.value.trim();
+                        const currentURL = window.location.href; // Get the current URL
+                        const downloadURL = currentURL + `/search?searchText=${query}`; // Append user's id to the current URL
+                        window.location.href = downloadURL;
+                    });
+                </script>
+                <ul>
+                    <% if (Events.length> 0) { %>
+                        <% Events.filter(event=> new Date(event.date) > new Date()).forEach(event=> { %>
+                            <li>
+                                <div class="time">
+                                    <h2>
+                                        <%= event.date.getDate() %> <br><span>
+                                                <%= event.date.toLocaleString('default', { month: 'long' }) %>
+                                            </span>
+                                    </h2>
+                                    <h5>Event starts at <%= event.date.getHours() %>:<%= event.date.getMinutes() %>
+                                    </h5>
+                                </div>
+                                <div class="details">
+                                    <h3>
+                                        <%= event.title %>
+                                    </h3>
+                                    <p>
+                                        <%= event.brief %>
+                                    </p>
+                                    <a href="#" onclick="viewDetails('<%= event._id %>')">View Details</a>
+                                    <script>
+                                        function viewDetails(eventId) {
+                                            const currentURL = window.location.href; // Get the current URL
+                                            const detailsURL = currentURL + '/details/' + eventId; // Append event id to the current URL
+                                            window.location.href = detailsURL; // Redirect to the details URL
+                                            event.preventDefault(); // Prevent default behavior of the anchor tag
+                                        }
+                                    </script>
+
+                                    <h5>Hurry Up!<br>only <%= event.ticketsleft.balcony + event.ticketsleft.normal %>
+                                            tickets left</h5>
+                                </div>
+                                <div style="clear:both;"></div>
+                            </li>
+                            <% }); %>
+                                <% } else { %>
+                                    <p>
+                                    <h1 style="color: white;">There are no Upcoming Events to display...</h1>
+                                    </p>
+                                    <% } %>
+                </ul>
+            </div>
+        </section>
+
+        <%- include('partials/footer') %>
+
+</body>
+
+</html>

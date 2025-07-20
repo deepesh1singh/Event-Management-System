@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>SAMS| <%= title %>
+	</title>
+	<link rel="stylesheet" href="/logout.css">
+</head>
+
+<body>
+
+	<% include('partials/logout') %>
+		<div id="bookingSection">
+			<style>
+				.container-booking {
+					max-width: 600px;
+					margin: 50px auto;
+					text-align: center;
+				}
+
+				input[type="number"] {
+					padding: 10px;
+					font-size: 16px;
+					width: 100px;
+					margin-bottom: 20px;
+				}
+
+				button {
+					padding: 10px 20px;
+					font-size: 16px;
+					background-color: #007bff;
+					color: #fff;
+					border: none;
+					cursor: pointer;
+				}
+
+				button:hover {
+					background-color: #0056b3;
+				}
+
+				.error-message {
+					color: red;
+					margin-top: 10px;
+				}
+
+				* {
+					box-sizing: border box;
+				}
+
+				body {
+					font-size: 16px;
+					background: rgb(84, 76, 76);
+					max-width: 760px;
+				}
+
+				.auditorium {
+					margin: 20px auto;
+					max-width: 200px;
+					background: rgb(94, 77, 77);
+				}
+
+				.select {
+					max-width: 300px;
+				}
+
+				ol {
+					list-style: none;
+					padding: 0;
+					margin: 0;
+
+				}
+
+				.seats {
+					display: flex;
+					flex-direction: row;
+					flex-wrap: wrap;
+					justify-content: flex-start;
+					overflow-x: auto;
+				}
+
+				.seat {
+					display: flex;
+					flex: 0 0 14.28%;
+					padding: 7px;
+					position: relative;
+				}
+
+				.seat label {
+					display: block;
+					position: relative;
+					width: 100%;
+					text-align: center;
+					font-size: 14px;
+					font-weight: bolder;
+					line-height: 1.5rem;
+					padding: 4px 0;
+					background: #5bfc60;
+					border-radius: 5px;
+					color: black;
+				}
+
+				.seat label:hover {
+					cursor: pointer;
+					box-shadow: 0 0 0px 2px green;
+				}
+
+				.seat input[type=checkbox] {
+					position: absolute;
+				}
+
+				.seat input[type=checkbox]:checked+label {
+					background: #656e65;
+				}
+			</style>
+			<div class="container-booking">
+				<h1>Seat Booking</h1>
+				<h2>Total Number of Seats Left: <%= event.ticketsleft.balcony + event.ticketsleft.normal %>
+				</h2>
+				<label for="Name">Enter your Name</label>
+				<input type="text" id="Name"><br>
+
+				<label for="balconySeats">Select number of Balcony seats</label>
+				<input type="number" id="balconySeats" min="0" value="0" placeholder="0"
+					oninput="calculateAmount('<%= event.price.balcony %>','<%= event.price.normal %>')"><br>
+
+				<label for="normalSeats">Select number of Normal seats</label>
+				<input type="number" id="normalSeats" min="0" value="0" placeholder="0"
+					oninput="calculateAmount('<%= event.price.balcony %>','<%= event.price.normal %>')"><br>
+
+				<button onclick="validateInputs()" type="button">Next</button>
+
+				<div id="seatOptions" style="display: none;">
+					<ol class="seats">
+
+						<% event.ticketNumbersLeft.balcony.sort((a, b)=> {
+							// Convert elements to strings and then compare
+							return String(a).localeCompare(String(b), undefined, {numeric: true, sensitivity: 'base'});
+							});
+							event.ticketNumbersLeft.normal.sort((a, b) => {
+							// Convert elements to strings and then compare
+							return String(a).localeCompare(String(b), undefined, {numeric: true, sensitivity: 'base'});
+							});
+							%>
+
+							<% if (event.ticketNumbersLeft.balcony.length> 0) { %>
+								<h3>Balcony seat Price: <%= event.price.balcony %>
+								</h3><br>
+								<h3><br>Balcony Seats:<br></h3>
+								<% event.ticketNumbersLeft.balcony.forEach(seat=> { %>
+									<li class="seat">
+										<input type="checkbox" class="balcony" id="<%= seat %>">
+										<label for="<%= seat %>">
+											<%= seat %>
+										</label>
+									</li>
+									<% }); %>
+										<% } else { %>
+											<h3>No Balcony seats available</h3>
+											<% } %>
+
+												<% if (event.ticketNumbersLeft.normal.length> 0) { %>
+													<h3>Normal seat Price: <%= event.price.normal %>
+													</h3><br>
+													<h3><br>Normal Seats:<br></h3>
+													<% event.ticketNumbersLeft.normal.forEach(seat=> { %>
+														<li class="seat">
+															<input type="checkbox" class="normal" id="<%= seat %>">
+															<label for="<%= seat %>">
+																<%= seat %>
+															</label>
+														</li>
+														<% }); %>
+															<% } else { %>
+																<h3>No Normal seats available</h3>
+																<% } %>
+					</ol>
+				</div>
+
+				<button onclick="bookSeats()" id="bookButton" style="display: none;" type="button">Book Seats</button>
+				<% const eventId=event_id; %>
+					<% const userId=user_id; %>
+
+						<div id="paymentOptions" style="display: none;">
+							<button onclick="proceedToPayment('<%= event_id %>', '<%= user_id %>')"
+								type="submit">Proceed to Payment</button>
+						</div>
+
+						<div id="bookingResult"></div>
+						<div id="errorMessage" class="error-message" style="display: none;"></div>
+			</div>
+		</div>
+		<div id="paymentSection" style="display: none;">
+			<style>
+				/* style.css */
+
+				body {
+					color: whitesmoke;
+					min-height: 200vh;
+					font-family: Arial, sans-serif;
+					background-image: url(/backgrounds/2.jpg);
+					margin: 0;
+					padding: 0;
+				}
+
+				.container {
+					max-width: 500px;
+					margin: 50px auto;
+					background: #fff;
+					padding: 20px;
+					border-radius: 5px;
+					box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+				}
+
+				h1 {
+					text-align: center;
+					margin-bottom: 20px;
+				}
+
+				form {
+					display: flex;
+					flex-direction: column;
+				}
+
+				label {
+					margin-bottom: 5px;
+				}
+
+				input[type="text"],
+				input[type="number"],
+				input[type="email"] {
+					padding: 10px;
+					margin-bottom: 15px;
+					border: 1px solid #ccc;
+					border-radius: 4px;
+					width: 75%;
+				}
+
+				button {
+					padding: 10px 20px;
+					background-color: #007bff;
+					color: #fff;
+					border: none;
+					border-radius: 4px;
+					cursor: pointer;
+					width: 25%;
+				}
+
+				button:hover {
+					background-color: #0056b3;
+				}
+
+				.error-message {
+					color: red;
+					margin-top: 5px;
+				}
+			</style>
+			<h1>Payment Details</h1>
+			<h1>Payment Details</h1>
+			<h1>Amount to be paid: <span id="amountToPay">0</span></h1>
+			<form id="paymentForm">
+
+				<label for="name">Name:</label>
+				<input type="text" id="name" name="name" required><br><br>
+
+				<label for="number">Mobile Number:</label>
+				<input type="text" id="number" name="number" required><br><br>
+
+				<label for="number">Email ID:</label>
+				<input type="email" id="email" name="email" placeholder="If have any..."><br><br>
+
+
+				<label for="transactionId">Transaction ID:</label>
+				<input type="text" id="transactionId" name="transactionId" required><br><br>
+
+				<label for="MUID">Merchant User ID:</label>
+				<input type="text" id="MUID" name="MUID" required><br><br>
+				<button onclick="makePayment('<%= event_id %>', '<%= user_id %>')" type="button">Submit Payment</button>
+			</form>
+			<%- include('partials/footer') %>
+
+				<!-- <script>
+					document.addEventListener('DOMContentLoaded', function () {
+						const paymentForm = document.getElementById('paymentForm');
+
+						paymentForm.addEventListener('submit', function (event) {
+							event.preventDefault(); // Prevent default form submission
+							// Redirect to the download page
+							window.location.href = `${window.location.href}/download`;
+						});
+					});
+				</script> -->
+		</div>
+
+		<script src="/script.js"></script>
+		<script>
+			function calculateAmount(balconyPrice, normalPrice) {
+				// Get the input values
+				var balconySeats = parseInt(document.getElementById('balconySeats').value);
+				var normalSeats = parseInt(document.getElementById('normalSeats').value);
+
+				// Get the prices from the event object (assuming event object is available)
+				var balconyPrice = balconyPrice;
+				var normalPrice = normalPrice;
+
+				// Calculate the total amount
+				var totalAmount = (balconyPrice * balconySeats) + (normalPrice * normalSeats);
+
+				// Update the displayed amount
+				document.getElementById('amountToPay').textContent = totalAmount;
+			}
+		</script>
+
+</body>
+
+</html>
